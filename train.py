@@ -1,6 +1,6 @@
 from keras.optimizers import Adam, SGD
 from keras.callbacks import ModelCheckpoint, EarlyStopping, TensorBoard
-from keras.losses import categorical_crossentropy, sparse_categorical_crossentropy
+from keras.losses import categorical_crossentropy, sparse_categorical_crossentropy, mean_squared_error
 import tensorflow as tf
 
 from config import Config
@@ -35,11 +35,20 @@ class Trainer:
                 y_pred_filtered = tf.boolean_mask(y_pred, boolean_mask)
                 return categorical_crossentropy(y_true_filtered[-2:], y_pred_filtered[-2:])
             return custom_loss
+
+        def custom_mse_error(n):
+            def custom_loss(y_true, y_pred):
+                boolean_mask = tf.not_equal(y_pred, tf.Variable([0 for _ in xrange(n)], dtype=tf.float32))
+                y_true_filtered = tf.boolean_mask(y_true, boolean_mask)
+                y_pred_filtered = tf.boolean_mask(y_pred, boolean_mask)
+                return mean_squared_error(y_true_filtered, y_pred_filtered)
+            return custom_loss
+
         loss = {
             "face_logits": "sparse_categorical_crossentropy",
-            "landmark_logits": "mean_squared_error",
-            "visibility_logits": "mean_squared_error",
-            "pose_logits": "mean_squared_error",
+            "landmark_logits": custom_mse_error(42),
+            "visibility_logits": custom_mse_error(21),
+            "pose_logits": custom_mse_error(3),
             "gender_logits": custom_gender_loss(),
         }
         # Assigning weights for each task loss according to paper.
