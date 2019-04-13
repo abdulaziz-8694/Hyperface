@@ -3,9 +3,8 @@ Hyperface Architecture and train pipeline for [Hyperface](https://arxiv.org/pdf/
 For now only AlexNet based architecture is implemented.
 ### Train on sample data
 1. Change the sample data path in ```config.py```. The data format should be numpy serializable 
-and have
- the following format
-The sample data will be a numpy file. It will be a shape of ( 391, 6 ).
+and have the following format
+For example, the sample data will be a numpy file. It will be a shape of ( X, 6 ) where X is the number of data points.
 The content of each element will be
     1. Image (numpy array)
     2. List which has [ 1, 1 ] if the given image is face or [ 0, 0 ] if the
