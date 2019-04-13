@@ -66,7 +66,7 @@ class Trainer:
             self.checkpoint_path, monitor="val_loss", save_best_only=True, save_weights_only=True, verbose=1
         )
         earlystopping_cb = EarlyStopping(monitor="val_loss", patience=5, verbose=1)
-        tensorboard = TensorBoard(log_dir='./')
+        tensorboard = TensorBoard(log_dir='./events/')
         return [checkpoint_cb, earlystopping_cb, tensorboard]
 
     def train(self):
