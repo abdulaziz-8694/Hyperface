@@ -31,7 +31,7 @@ class DataLoader(object):
     def _mask_label(self, Y, Y_mask, rep):
         expanded_visibility = self.expand_visibility(Y_mask, rep)
         Y_landmark_masked = Y * expanded_visibility
-        print(Y_landmark_masked[0])
+        # print(Y_landmark_masked[0])
         return Y_landmark_masked
 
     def _split_and_transform(self, X, Y_face, Y_landmark, Y_visibility, Y_pose, Y_gender):
@@ -48,7 +48,7 @@ class DataLoader(object):
         return X, Y_face, Y_landmark, Y_visibility, Y_pose, Y_gender
 
     def _prepare_data(self):
-        print(self.data.shape)
+        # print(self.data.shape)
         X, Y_face, Y_landmark, Y_visibility, Y_pose, Y_gender = numpy.split(self.data, 6, axis=1)
         X, Y_face, Y_landmark, Y_visibility, Y_pose, Y_gender = self._split_and_transform(
             X, Y_face, Y_landmark, Y_visibility, Y_pose, Y_gender
