@@ -1,0 +1,16 @@
+*.csv
+*.json
+*.idea/
+*.jpg
+*.tif
+*.png
+*.tgz
+*.pkl
+*.txt
+*.jpg.*
+*.jpg_*
+*.ipynb*
+*.h5
+*-ckpt
+*.pyc
+*.npy
